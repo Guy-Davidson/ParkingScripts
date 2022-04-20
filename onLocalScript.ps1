@@ -1,3 +1,5 @@
+# after aws configure
+
 $DateTime = (Get-Date).ToUniversalTime() 
 $UnixTimeStamp = [System.Math]::Truncate((Get-Date -Date $DateTime -UFormat %s))
 
@@ -40,3 +42,6 @@ $Describe_Instances_Convert = $Describe_Instances | ConvertFrom-Json
 $PUBLIC_IP = $Describe_Instances_Convert.Reservations[0].Instances[0].PublicIpAddress
 
 ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP 
+
+# On this point I'm manually entering 'onCloudScript.bash' 
+# It did not work automatically no matter what I tried. 
