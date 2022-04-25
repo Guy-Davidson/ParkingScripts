@@ -41,7 +41,8 @@ $Describe_Instances = aws ec2 describe-instances --instance-ids $INSTANCE_ID
 $Describe_Instances_Convert = $Describe_Instances | ConvertFrom-Json
 $PUBLIC_IP = $Describe_Instances_Convert.Reservations[0].Instances[0].PublicIpAddress
 
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=60" mongodbKey.txt ubuntu@${PUBLIC_IP}:/home/ubuntu/
+
 ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP 
 
 # On this point I'm manually entering 'onCloudScript.bash' 
-# It did not work automatically no matter what I tried. 
