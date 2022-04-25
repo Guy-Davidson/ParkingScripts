@@ -36,7 +36,6 @@ $INSTANCE_ID = $RUN_INSTANCES_Convert.Instances[0].InstanceId
 
 aws ec2 wait instance-running --instance-ids $INSTANCE_ID
 
-
 $Describe_Instances = aws ec2 describe-instances --instance-ids $INSTANCE_ID
 $Describe_Instances_Convert = $Describe_Instances | ConvertFrom-Json
 $PUBLIC_IP = $Describe_Instances_Convert.Reservations[0].Instances[0].PublicIpAddress
