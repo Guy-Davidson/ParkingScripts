@@ -40,4 +40,6 @@ $PUBLIC_IP = $Describe_Instances_Convert.Reservations[0].Instances[0].PublicIpAd
 
 scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=60" mongodbKey.txt ubuntu@${PUBLIC_IP}:/home/ubuntu/
 
-Get-Content -Path .\onCloudScript.bash | ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP 
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=60" ./onCloudScript.bash ubuntu@${PUBLIC_IP}:/home/ubuntu/
+
+ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "sudo bash ~/onCloudScript.bash"
