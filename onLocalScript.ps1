@@ -38,8 +38,14 @@ $Describe_Instances = aws ec2 describe-instances --instance-ids $INSTANCE_ID
 $Describe_Instances_Convert = $Describe_Instances | ConvertFrom-Json
 $PUBLIC_IP = $Describe_Instances_Convert.Reservations[0].Instances[0].PublicIpAddress
 
-scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=60" mongodbKey.txt ubuntu@${PUBLIC_IP}:/home/ubuntu/
+ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "mkdir .aws"
 
-scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=60" ./onCloudScript.bash ubuntu@${PUBLIC_IP}:/home/ubuntu/
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" mongodbKey.txt ubuntu@${PUBLIC_IP}:/home/ubuntu/
+
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" credentials ubuntu@${PUBLIC_IP}:~/.aws/
+
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" config ubuntu@${PUBLIC_IP}:~/.aws/
+
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" onCloudScript.bash ubuntu@${PUBLIC_IP}:/home/ubuntu/
 
 ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "sudo bash ~/onCloudScript.bash"
