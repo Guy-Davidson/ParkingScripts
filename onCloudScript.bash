@@ -1,5 +1,5 @@
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get -y update
+sudo apt-get -y upgrade
 sudo apt-get install -y npm
 sudo npm cache clean -f
 sudo npm install -g n
