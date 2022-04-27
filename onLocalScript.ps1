@@ -40,12 +40,16 @@ $PUBLIC_IP = $Describe_Instances_Convert.Reservations[0].Instances[0].PublicIpAd
 
 ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "mkdir .aws"
 
-scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" mongodbKey.txt ubuntu@${PUBLIC_IP}:/home/ubuntu/
-
 scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" credentials ubuntu@${PUBLIC_IP}:~/.aws/
 
 scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" config ubuntu@${PUBLIC_IP}:~/.aws/
 
+scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" mongodbKey.txt ubuntu@${PUBLIC_IP}:/home/ubuntu/
+
 scp -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" onCloudScript.bash ubuntu@${PUBLIC_IP}:/home/ubuntu/
 
 ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "sudo bash ~/onCloudScript.bash"
+
+ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "aws configure list"
+
+ssh -i $KEY_PEM -o "StrictHostKeyChecking=no" -o "ConnectionAttempts=10" ubuntu@$PUBLIC_IP "cd app && node index.js"
